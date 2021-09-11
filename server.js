@@ -29,7 +29,7 @@ const server = app.listen(port, () =>
 app.get("/weather", sendData);
 
 function sendData(req, res) {
-  res.send(projectData);
+  projectData.push(req.body);
 }
 //create post request
 const data = [];
