@@ -2,7 +2,7 @@
 let baseUrl;
 let apiKey;
 
-document.gerElementById("generate").addEventListener("click", myAction);
+document.getElementById("generate").addEventListener("click", myAction);
 
 function myAction(event) {}
 // Create a new date instance dynamically with JS

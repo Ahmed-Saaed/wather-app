@@ -33,8 +33,10 @@ function sendData(req, res) {
 }
 //create post request
 const data = [];
+
 app.post("/weather", add);
 
 function add(req, res) {
   data.push(req.body);
+  console.log(data);
 }
