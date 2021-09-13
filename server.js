@@ -40,7 +40,7 @@ function add(req, res) {
     date: req.body.date,
     weather: req.body.weather,
     feeling: req.body.feeling,
-  };
-  projectData = newEntry;
-  console.log(data);
+  }
+  projectData = JSON.parse(JSON.stringify(newEntry));
+  console.log(projectData);
 }

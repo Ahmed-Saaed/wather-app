@@ -10,4 +10,7 @@ this is an asynchronous web app that uses Web API and user data to dynamically u
   - creating GET and POST requests routes
     -client side :
     -set the local varibals from the api [open_weather_map](https://openweathermap.org/current#zip)
-    -set the event listenr on generate button
+    -other referenses on how to deal with api data : 
+      -nour elhomsi channel 
+      -[how to copy an object](https://www.javascripttutorial.net/object/3-ways-to-copy-objects-in-javascript/)
+    -set the event listener on generate button

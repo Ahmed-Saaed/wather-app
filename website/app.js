@@ -1,74 +1,75 @@
 /* Global Variables */
-let baseURL = "api.openweathermap.org/data/2.5/weather?zip=";
-const apiKey = "7699888812ddd206b2ad73e85cacb50d";
+let baseURL = 'api.openweathermap.org/data/2.5/weather?zip=';
+const apiKey = '&appid=7699888812ddd206b2ad73e85cacb50d';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
 
-document.getElementById("generate").addEventListener("click", myAction);
+document.getElementById('generate').addEventListener('click', myAction);
 
 function myAction(event) {
-  let zipCode = document.getElementById("zip").value;
-  let feeling = document.getElementById("feelings").value;
+  let zipCode = document.getElementById('zip').value;
+  let feeling = document.getElementById('feelings').value;
 
   getWeather(baseURL, zipCode, apiKey)
     //chain promises
     .then((data) => {
       // Add data
       console.log(data);
-      postData("/add", { date: d, /*weather: ,*/ feeling: feeling });
+      postData('/add', {date:d, weather:data.main.temp, feeling:feeling})
     })
-    .then(updateUI());
+    updateUI();
 }
 
 // get the weather data from our api using async get function
 const getWeather = async (baseURL, zip, key) => {
-  const res = await fetch(baseURL + zip + key);
+  const res = await fetch(baseURL+zip+key);
+  let data;
 
   try {
-    const data = await res.json();
+    data = await res.json();
     console.log(data);
     return data;
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error);
   }
 };
 
 // our async function that will post all our data to the route
 
-let postData = async (url = "", data = {}) => {
+const postData = async (url = '', data = {}) => {
   let res = await fetch(url, {
-    method: "POST",
-    credentials: "same-origin",
+    method: 'POST',
+    credentials: 'same-origin',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(data), // body data type must match the header
   });
 
   try {
-    const data = await res.json();
-    console.log(data);
-    return data;
+    const myData = await res.json();
+    console.log(myData);
+    return myData;
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error);
   }
 };
 
 // update ui function
 const updateUI = async () => {
-  const request = await fetch("/weather");
+  const req = await fetch('/all');
   try {
-    const allData = await request.json();
-    document.getElementById("date").innerHTML = `Date: ${allData[0].d}`;
+    const allData = await req.json();
+    document.getElementById('date').innerHTML = `Date: ${allData.date}`;
     document.getElementById(
-      "temp"
-    ).innerHTML = ` the weather today:${allData[0].weather}`;
+      'temp'
+    ).innerHTML = ` the weather today:${allData.weather}`;
     document.getElementById(
-      "content"
-    ).innerHTML = `I am feeling ${allData[0].feeling}`;
+      'content'
+    ).innerHTML = `I am feeling ${allData.feeling} today`;
   } catch (error) {
-    console.log("error", error);
+    console.log('error', error);
   }
 };
