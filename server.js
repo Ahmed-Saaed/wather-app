@@ -29,12 +29,9 @@ const server = app.listen(port, () =>
 app.get("/all", sendData);
 
 function sendData(req, res) {
-  projectData.date = date;
-  projectData.weather = weather;
-  projectData.feeling = feeling;
+  res.send(projectData);
 }
 //create post request
-const data = [];
 
 app.post("/add", add);
 
