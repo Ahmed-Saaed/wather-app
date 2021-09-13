@@ -33,7 +33,7 @@ function sendData(req, res) {
 }
 //create post request
 
-app.post("/add", add);
+app.post('/add', add);
 
 function add(req, res) {
   newEntry = {
