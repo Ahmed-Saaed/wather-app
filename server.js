@@ -26,21 +26,24 @@ const server = app.listen(port, () =>
 
 // creat GET request
 
-app.get("/weather", sendData);
+app.get("/all", sendData);
 
 function sendData(req, res) {
-  projectData.push(req.body);
+  projectData.date = date;
+  projectData.weather = weather;
+  projectData.feeling = feeling;
 }
 //create post request
 const data = [];
 
-app.post("/weather", add);
+app.post("/add", add);
 
 function add(req, res) {
   newEntry = {
-    //weather: req.body.weather,
+    date: req.body.date,
+    weather: req.body.weather,
     feeling: req.body.feeling,
   };
-  data.push(req.body);
+  projectData = newEntry;
   console.log(data);
 }
