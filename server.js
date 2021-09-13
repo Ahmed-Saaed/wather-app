@@ -38,6 +38,7 @@ app.post('/add', add);
 function add(req, res) {
   newEntry = {
     date: req.body.date,
+    city: req.body.city,
     weather: req.body.weather,
     feeling: req.body.feeling,
   }

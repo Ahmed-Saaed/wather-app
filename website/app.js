@@ -1,5 +1,5 @@
 /* Global Variables */
-let baseURL = 'api.openweathermap.org/data/2.5/weather?zip=';
+let baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const apiKey = `&appid=7699888812ddd206b2ad73e85cacb50d`;
 
 // Create a new date instance dynamically with JS
@@ -16,15 +16,15 @@ function myAction(event) {
     //chain promises
     .then((data) => {
       // Add data
-      console.log(data);
-      postData('/add', {date: newDate, weather: data.main.temp, feeling:feeling})
-    }).then
-    (updateUI());
+      console.log(data.name);
+      postData('/add', {date: newDate, city: data.name, weather: data.main.temp, feeling:feeling})
+    })
+    updateUI();
 }
 
 // get the weather data from our api using async get function
 const getWeather = async (baseURL, zip, key) => {
-  const response = await fetch(baseURL+zip+key+`units=metric`);
+  const response = await fetch(`${baseURL}${zip}${key}&units=metric`);
   try {
     const data = await response.json();
     console.log(data);
@@ -67,6 +67,12 @@ const updateUI = async () => {
     document.getElementById(
       'content'
     ).innerHTML = `I am feeling ${allData.feeling} today`;
+    document.getElementById(
+      'content'
+    ).innerHTML = `I am feeling ${allData.feeling} today`;
+    document.getElementById(
+      'city'
+    ).innerHTML = `your City is : ${allData.city}`;
   } catch (error) {
     console.log('error', error);
   }
