@@ -18,8 +18,9 @@ const postData = async (url = "", data = {}) => {
   }
 };
 
-postData("/weather", {
+/** postData("/weather", {
   fav: "lion",
   fact: "they are awesome",
   size: "really big",
 });
+*/

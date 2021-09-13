@@ -14,7 +14,13 @@
       <div class="holder headline">Weather Journal App</div>
       <div class="holder zip">
         <label for="zip">Enter Zipcode here</label>
-        <input type="text" id="zip" placeholder="enter zip code here" />
+        <input
+          type="text"
+          id="zip"
+          placeholder="enter zip code here"
+          onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'enter zip code here'"
+        />
       </div>
       <div class="holder feel">
         <label for="feelings">How are you feeling today?</label>
@@ -24,6 +30,8 @@
           placeholder="Enter your feelings here"
           rows="9"
           cols="50"
+          onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'Enter your feelings here'"
         ></textarea>
         <button id="generate" type="submit">Generate</button>
       </div>

@@ -37,6 +37,10 @@ const data = [];
 app.post("/weather", add);
 
 function add(req, res) {
+  newEntry = {
+    //weather: req.body.weather,
+    feeling: req.body.feeling,
+  };
   data.push(req.body);
   console.log(data);
 }
