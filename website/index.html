@@ -15,20 +15,36 @@
       <div class="holder zip">
         <label for="zip">Enter Zipcode here</label>
         <input
-          type="text"
-          id="zip"
-          placeholder="enter zip code here"
-          onfocus="this.placeholder = ''"
-          onblur="this.placeholder = 'enter zip code here'"
+        type="text"
+        id="zip"
+        placeholder="enter zip code here"
+        onfocus="this.placeholder = ''"
+        onblur="this.placeholder = 'enter zip code here'"
         />
       </div>
+      <div class="holder">
+        <div id="openweathermap-widget-5"></div>
+        <span style="display: block;">or with city id </span>
+        <span> try cairo id : 360630</span>
+        <label for="cityId">
+          city ID :
+          <input
+            type="number"
+            id="id"
+            class="city"
+            name="cityId"
+            placeholder="write your city id"
+          />
+        </label>
+        <button id="btn">submit</button>
+    </div>
       <div class="holder feel">
         <label for="feelings">How are you feeling today?</label>
         <textarea
           class="myInput"
           id="feelings"
           placeholder="Enter your feelings here"
-          rows="4"
+          rows="2"
           cols="50"
           onfocus="this.placeholder = ''"
           onblur="this.placeholder = 'Enter your feelings here'"
@@ -38,10 +54,10 @@
       <div class="holder entry">
         <div class="title">Most Recent Entry:</div>
         <div id="entryHolder">
-          <div id="date">8.14.2021</div>
-          <div id="temp">27.27</div>
-          <div id="content">happy</div>
-          <div id="city">bronix</div>
+          <div id="date"></div>
+          <div id="temp"></div>
+          <div id="content"></div>
+          <div id="city"></div>
         </div>
       </div>
     </div>

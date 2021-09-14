@@ -61,19 +61,34 @@ const updateUI = async () => {
   try {
     const allData = await req.json();
     document.getElementById('date').innerHTML = `Date: ${allData.date}`;
-    document.getElementById(
-      'temp'
-    ).innerHTML = ` the weather today:${allData.weather}`;
-    document.getElementById(
-      'content'
-    ).innerHTML = `I am feeling ${allData.feeling} today`;
-    document.getElementById(
-      'content'
-    ).innerHTML = `I am feeling ${allData.feeling} today`;
-    document.getElementById(
-      'city'
-    ).innerHTML = `your City is : ${allData.city}`;
+    document.getElementById('temp').innerHTML = ` the weather today: ${allData.weather}`;
+    document.getElementById('content').innerHTML = `I am feeling  ${allData.feeling} today`;
+    document.getElementById('city').innerHTML = `your City is : ${allData.city}`;
   } catch (error) {
     console.log('error', error);
   }
 };
+
+//add widget from weather api
+document.getElementById("btn").addEventListener("click", (e) => {
+  let cityID = document.getElementById("id").value;
+  window.myWidgetParam
+    ? window.myWidgetParam
+    : (window.myWidgetParam = []);
+  window.myWidgetParam.push({
+    id: 5,
+    cityid: cityID,
+    appid: "7699888812ddd206b2ad73e85cacb50d",
+    units: "metric",
+    containerid: "openweathermap-widget-5",
+  });
+  (function () {
+    var script = document.createElement("script");
+    script.async = true;
+    script.charset = "utf-8";
+    script.src =
+      "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(script, s);
+  })();
+});

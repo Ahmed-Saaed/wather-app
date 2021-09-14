@@ -8,7 +8,7 @@ body {
   grid-auto-rows: minmax(150px, auto);
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  height: fit-content;
+  height: 150vh;
   background: #f23557;
   color: #f0d43a;
   justify-content: space-around;
@@ -39,6 +39,14 @@ body {
   grid-column-end: 3;
 }
 
+.city {
+  margin: 20px 0 ;
+  border-radius: 5px;
+  padding:10px;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+}
+
 #entryHolder {
   max-width: 800px;
   min-height: 400px;
@@ -48,13 +56,9 @@ body {
   margin: 25px 10px;
 }
 
-#date {
-}
-
-#temp {
-}
-
-#content {
+.title {
+  font-size: 2em;
+  margin-bottom: 5px;
 }
 
 .headline {
@@ -72,7 +76,7 @@ label {
 
 input {
   display: block;
-  height: 60px;
+  height: calc(fitcontent + 50px );
   width: 320px;
   background: #22b2da;
   color: #f0d43a;
