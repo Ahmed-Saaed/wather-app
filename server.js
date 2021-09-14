@@ -30,7 +30,6 @@ app.get("/all", sendData);
 
 function sendData(req, res) {
   res.send(projectData);
-  projectData ={}
 }
 //create post request
 

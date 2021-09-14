@@ -14,3 +14,5 @@ this is an asynchronous web app that uses Web API and user data to dynamically u
       -nour elhomsi channel 
       -[how to copy an object](https://www.javascripttutorial.net/object/3-ways-to-copy-objects-in-javascript/)
     -set the event listener on generate button
+    -a chain function between getting the date (the weather) and posting the data and then update the ui
+    -a widget to display the weather dynamically served by the openweathermap
