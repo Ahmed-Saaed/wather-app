@@ -39,12 +39,7 @@ function sendData(req, res) {
 app.post('/add', add);
 
 function add(req, res) {
-  newEntry = {
-    date: req.body.date,
-    city: req.body.city,
-    weather: req.body.weather,
-    feeling: req.body.feeling,
-  };
-  projectData = JSON.parse(JSON.stringify(newEntry));
+  projectData = {...req.body};
+  res.send(projectData)
   console.log(projectData);
 }

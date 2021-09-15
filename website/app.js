@@ -5,10 +5,9 @@ const apiKey = `&appid=7699888812ddd206b2ad73e85cacb50d`;
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
-
 document.getElementById('generate').addEventListener('click', myAction);
 
-async function myAction(event) {
+function myAction(event) {
   let zipCode = document.getElementById('zip').value;
   let feeling = document.getElementById('feelings').value;
   let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
@@ -27,7 +26,6 @@ async function myAction(event) {
     //chain promises
     .then((data) => {
       // Add data
-      console.log(data.name);
       postData('/add', {
         date: newDate,
         city: data.name,
@@ -35,8 +33,7 @@ async function myAction(event) {
         feeling: feeling,
       });
     })
-    .then(()=> getData())
-    .then((myData)=> updateUI(myData))
+    .then(()=>updateUI())
     .catch(error => console.log('error',error));
 }
 
@@ -72,23 +69,12 @@ const postData = async (url = '', data = {}) => {
   }
 };
 
-const getData = async () =>{
-  const dataRes = await fetch('/all', {   
-    method: 'GET',
-    credentials: 'same-origin',
-  })
-  try{
-    const myData = await dataRes.json();
-    console.log(myData)
-    return myData;
-  }catch(error){
-    console.log('error', error)
-  }
-}
-
 // update ui function
-const updateUI = async (myData) => {
+const updateUI = async () => {
+  const res = await fetch('/all')
   try{
+    const myData = await res.json();
+    console.log(myData)
     document.getElementById('date').innerHTML = `Date: ${myData.date}`;
     document.getElementById(
       'temp'
