@@ -35,8 +35,9 @@ async function myAction(event) {
         feeling: feeling,
       });
     })
-    .then((e)=> getData())
-    .then((myData)=> updateUI(myData));
+    .then(()=> getData())
+    .then((myData)=> updateUI(myData))
+    .catch(error => console.log('error',error));
 }
 
 // get the weather data from our api using async get function
@@ -64,13 +65,15 @@ const postData = async (url = '', data = {}) => {
       },
       body: JSON.stringify(data), // body data type must match the header
     });
+    const postedData = res.json()
+    console.log(postedData)
   } catch (error) {
     console.log('error', error);
   }
 };
 
 const getData = async () =>{
-  const dataRes = await fetch('all', {   
+  const dataRes = await fetch('/all', {   
     method: 'GET',
     credentials: 'same-origin',
   })
