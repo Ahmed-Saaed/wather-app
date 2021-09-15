@@ -35,8 +35,8 @@ async function myAction(event) {
         feeling: feeling,
       });
     })
-    .then((e)=>getData())
-    .then((myData)=>updateUI(myData));
+    .then((e)=> getData())
+    .then((myData)=> updateUI(myData));
 }
 
 // get the weather data from our api using async get function
