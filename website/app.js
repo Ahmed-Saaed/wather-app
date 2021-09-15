@@ -1,25 +1,42 @@
 /* Global Variables */
-let baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
+const baseURL = 'https://api.openweathermap.org/data/2.5/weather?zip=';
 const apiKey = `&appid=7699888812ddd206b2ad73e85cacb50d`;
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
 
 document.getElementById('generate').addEventListener('click', myAction);
 
-function myAction(event) {
+async function myAction(event) {
   let zipCode = document.getElementById('zip').value;
   let feeling = document.getElementById('feelings').value;
+  let isValidZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/;
+  console.log(isValidZip.test(10001))
+    // alert trriger on invalid zip code -works only for US zip code-
+
+    function isValid() {
+      isValidZip.test(zipCode)
+        ? true
+        : window.alert('404 ,kindly enter a valid zip code');
+    }
+    
+  isValid();
 
   getWeather(baseURL, zipCode, apiKey)
     //chain promises
     .then((data) => {
       // Add data
       console.log(data.name);
-      postData('/add', {date: newDate, city: data.name, weather: data.main.temp, feeling:feeling})
+      postData('/add', {
+        date: newDate,
+        city: data.name,
+        weather: data.main.temp,
+        feeling: feeling,
+      });
     })
-    updateUI();
+    .then((e)=>getData())
+    .then((myData)=>updateUI(myData));
 }
 
 // get the weather data from our api using async get function
@@ -29,7 +46,7 @@ const getWeather = async (baseURL, zip, key) => {
     const data = await response.json();
     console.log(data);
     return data;
-  } catch(error) {
+  } catch (error) {
     console.log('error', error);
   }
 };
@@ -37,58 +54,71 @@ const getWeather = async (baseURL, zip, key) => {
 // our async function that will post all our data to the route
 
 const postData = async (url = '', data = {}) => {
-  let res = await fetch(url, {
-    method: 'POST',
-    credentials: 'same-origin',
-    crossDomain: true,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data), // body data type must match the header
-  });
-
   try {
-    const myData = await res.json();
-    return myData;
+    let res = await fetch(url, {
+      method: 'POST',
+      credentials: 'same-origin',
+      crossDomain: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data), // body data type must match the header
+    });
   } catch (error) {
     console.log('error', error);
   }
 };
+
+const getData = async () =>{
+  const dataRes = await fetch('all', {   
+    method: 'GET',
+    credentials: 'same-origin',
+  })
+  try{
+    const myData = await dataRes.json();
+    console.log(myData)
+    return myData;
+  }catch(error){
+    console.log('error', error)
+  }
+}
 
 // update ui function
-const updateUI = async () => {
-  const req = await fetch('/all');
-  try {
-    const allData = await req.json();
-    document.getElementById('date').innerHTML = `Date: ${allData.date}`;
-    document.getElementById('temp').innerHTML = ` the weather today: ${allData.weather}`;
-    document.getElementById('content').innerHTML = `I am feeling  ${allData.feeling} today`;
-    document.getElementById('city').innerHTML = `your City is : ${allData.city}`;
-  } catch (error) {
-    console.log('error', error);
+const updateUI = async (myData) => {
+  try{
+    document.getElementById('date').innerHTML = `Date: ${myData.date}`;
+    document.getElementById(
+      'temp'
+    ).innerHTML = ` the weather today: ${myData.weather}`;
+    document.getElementById(
+      'content'
+    ).innerHTML = `I am feeling  ${myData.feeling} today`;
+    document.getElementById(
+      'city'
+    ).innerHTML = `your City is : ${myData.city}`;
+    }catch(error){
+      console.log("error")
+    }
   }
-};
 
 //add widget from weather api
-document.getElementById("btn").addEventListener("click", (e) => {
-  let cityID = document.getElementById("id").value;
-  window.myWidgetParam
-    ? window.myWidgetParam
-    : (window.myWidgetParam = []);
+document.getElementById('btn').addEventListener('click', (e) => {
+  let cityID = document.getElementById('id').value;
+  window.myWidgetParam ? window.myWidgetParam : (window.myWidgetParam = []);
   window.myWidgetParam.push({
     id: 5,
     cityid: cityID,
-    appid: "7699888812ddd206b2ad73e85cacb50d",
-    units: "metric",
-    containerid: "openweathermap-widget-5",
+    appid: '7699888812ddd206b2ad73e85cacb50d',
+    units: 'metric',
+    containerid: 'openweathermap-widget-5',
   });
   (function () {
-    var script = document.createElement("script");
+    var script = document.createElement('script');
     script.async = true;
-    script.charset = "utf-8";
+    script.charset = 'utf-8';
     script.src =
-      "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
-    var s = document.getElementsByTagName("script")[0];
+      '//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js';
+    var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(script, s);
   })();
 });

@@ -1,0 +1,27 @@
+{
+  "name": "wep-journal",
+  "version": "1.0.0",
+  "description": "this is an asynchronous web app that uses Web API and user data to dynamically update the UI.",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahmed-Saaed/wather-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ahmed-Saaed/wather-app/issues"
+  },
+  "homepage": "https://github.com/Ahmed-Saaed/wather-app#readme"
+}
